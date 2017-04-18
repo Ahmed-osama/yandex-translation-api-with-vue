@@ -49,7 +49,7 @@ export default {
   }
   .main-input{
     padding: 15px;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 1.5em;
     display: block;
     height:calc(100vh - 250px);
