@@ -1,0 +1,27 @@
+-if(!post.img) post.img = 'img/content/1.jpg'
+-if(!post.caption) post.caption = 'نص جريبي'
+-if(!post.abstract) post.abstract = 'نص جريبي'
+-if(!singleLink) singleLink = 'single.html'
+
+.post-view
+  a.post-view__link(href=singleLink alt=post.caption)
+  .post-view__img
+    span.post-view__fav
+      input(type="checkbox" id="fav_"+i)
+      label(for="fav_"+i)
+        i.mdi-star-outline
+        i.mdi-star
+    span.post-view__share
+       a.socialItem(href="#" class=data.social[0].class): i(class=data.social[0].icon)
+
+
+    -if(post.video)
+      span.post-view__icon
+        i.mdi-play
+    img.lazy( alt=post.caption, src=post.img)
+  -if(post.card)
+    .post-view__caption
+      span.date October 19, 2017
+      h4.post-view__maxTitle(alt=post.caption ) #{post.caption}
+  -if(post.over)
+    h4.post-view__caption.post-view__caption--over(alt=post.caption ): span.post-view__maxTitle #{post.caption}
