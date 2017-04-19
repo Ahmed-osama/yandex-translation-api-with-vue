@@ -19,3 +19,10 @@
 //[4] components
 	@import 'components/_post-view.scss';
 
+.fade-enter-active, .fade-leave-active {
+	  transition: opacity .3s ease;
+	}
+	.fade-enter, .fade-leave-to
+	/* .component-fade-leave-active for <2.1.8 */ {
+	  opacity: 0;
+	}

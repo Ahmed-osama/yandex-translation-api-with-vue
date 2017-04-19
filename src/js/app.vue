@@ -1,14 +1,32 @@
 
 <template lang='pug'>
   main
-    main-header
+    main-header(:blockLength="blockLength" @reset="reset")
     .container.main-container
-      .row
-        .col-sm-4
-          textarea.main-input(v-model="input")
-          .btn.green_bg.block translate
-        .col-sm-8
-          translation-item(v-for="block in blocks",  :pureSentence="block")
+      transition(name="fade")
+        .row(v-if="!inputDone")
+          .col-sm-8.col-sm-push-2
+            select.select-lang(v-model="sourcelang")
+              option(v-for="(key, value) in counterylist" :value="value") {{key}}
+            select.select-lang(v-model="targetlang")
+              option(v-for="(key, value) in counterylist" :value="value") {{key}}
+            textarea.main-input(v-model="tempinput" @keyup.enter="input = tempinput")
+            .btn.green_bg.block(@click="input = tempinput; inputDone = true") translate
+      transition(name="fade")
+        .row(v-if="!translationDone && inputDone")
+          .col-sm-8.col-sm-push-2
+            translation-item(v-for="(block, index) in blocks",  :pureSentence="block", :indexNum="index" @translation = "totalTranslation" :fromlang="sourcelang" :tolang="targetlang")
+            
+
+            .btnHolder.marginBottom.tac
+              .btn.blue_bg.round(v-if="blocks.length > -1", @click="translationDone = true")
+                i.mdi-check
+                |show translation
+      transition(name="fade")
+        .row(v-if="translationDone")
+          p.output(v-for="p in output")
+            |{{p}}
+            br
     main-footer(:name="developer")
 </template>
 
@@ -18,6 +36,13 @@ export default {
     return {
       developer:"ahmed osama",
       input:"",
+      tempinput:"",
+      counterylist:[],
+      output:[],
+      translationDone:false,
+      inputDone:false,
+      sourcelang:"en",
+      targetlang:"ar"
     }
   },
   computed:{
@@ -25,6 +50,9 @@ export default {
         var blocks =  this.input.split(".") || []
         this.cleanarray(blocks,"")
         return blocks
+      },
+      blockLength:function(){
+         return this.blocks.length
       }
   },
   methods:{
@@ -37,7 +65,30 @@ export default {
       }
       return arr;
     },
+    totalTranslation:function(data, index){
+        this.output[index] = data + "."
+    },
+    reset:function(){
+      this.input = "";
+      this.tempinput = "";
+      this.output = [];
+      this.translationDone = false;
+      this.inputDone = false;
+    },
+    gitLanguage:function(){
+      var url = "https://translate.yandex.net/api/v1.5/tr.json/getLangs?key=trnsl.1.1.20170416T160225Z.e6054dd4f8b7fa3e.aec3b9e969b0d5aa83dcc538ca270dde3e55ce9f&ui=ar"
+      var that = this
+      axios
+      .get(url)
+      .then(function (response) {
+        that.counterylist =  response.data.langs
+      })
+
+    }
   },
+  mounted:function(){
+    this.gitLanguage()
+  }
 }
 </script>
 
@@ -46,6 +97,14 @@ export default {
     width:100%;
     max-width:100%;
     padding:50px;
+  }
+  .select-lang{
+    display: inline-block;
+    padding: 0 15px;
+    height: 44px;
+    line-height: 43px;
+    border:1px solid darken(#fafafa,5%);
+    background: rgba(0,0,0,0);
   }
   .main-input{
     padding: 15px;
@@ -58,7 +117,20 @@ export default {
     outline: none;
     clear:both;
     width:100%;
-    margin-bottom: 15px;;
+    margin-bottom: 15px;
+    border:1px solid darken(#fafafa,5%);
+  }
+  .output{
+    font-family: 'bahej';
+    line-height:  1.6em;
+    font-size:  24px;
+    margin-bottom:  15px;
+    max-width:600px;
+    margin-left:  auto;
+    margin-right: auto;
+    display:  block;
+    text-align: right;
+    direction:rtl;
   }
   
 </style>

@@ -9,11 +9,10 @@
   #headerSidemenu.main-header__sideMenu
     nav.main-header__nav
       ul
-        li(v-for="item in nav")
-          a(:href="item.link") {{item.name}}
-      .btn.yellow_bg.round.main-header__cta
-        span add your story
-        i.mdi-plus
+        li: a source blocks : {{blockLength}}
+      .btn.yellow_bg.round.main-header__cta(@click='$emit("reset")')
+        span New Translation session
+
   label.main-header__menuTogglerOver(for='headerSidemenu-state')
 </template>
 
@@ -21,24 +20,18 @@
 export default {
   data () {
     return {
-      nav:[
-        {
-          link:"https://github.com/Ahmed-osama",
-          name:"Developer"
-        }
-      ]
+      
     }
   },
+  props:['blockLength'],
   computed(){
     return {
       
     }
   },
-  methods(){
-    return{
+  methods:{
 
-    }
-  }
+  },
 }
 </script>
 

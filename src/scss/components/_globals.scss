@@ -13,11 +13,14 @@
 
             margin-bottom: 30px;
         }
+        &.marginBottom{
+            margin-bottom: 15px ;
+        }
         &.tac{
             text-align: center;
         }
         .btn + .btn{
-            margin-#{$left}: 15px;
+            margin-#{$right}: 10px;
         }
     }
     .btn{
@@ -41,7 +44,7 @@
                 margin-#{$left}: 10px;
             }
         }
-        *+*{
+        & + .btn{
              margin-#{$left}: 10px;
         }
         &:hover{
