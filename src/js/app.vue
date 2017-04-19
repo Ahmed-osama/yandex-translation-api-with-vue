@@ -3,12 +3,22 @@
   main
     main-header
     .container.main-container
-      .row
+      .row(v-if="!translationDone")
         .col-sm-4
-          textarea.main-input(v-model="input")
-          .btn.green_bg.block translate
+          textarea.main-input(v-model="tempinput" @keyup.enter="input = tempinput")
+          .btn.green_bg.block(@click="input = tempinput") translate
         .col-sm-8
-          translation-item(v-for="block in blocks",  :pureSentence="block")
+          translation-item(v-for="(block, index) in blocks",  :pureSentence="block", :indexNum="index" @translation = "totalTranslation")
+          
+
+          .btnHolder.marginBottom.tac
+            .btn.blue_bg.round(v-if="blocks.length > 1", @click="translationDone = true")
+              i.mdi-check
+              |show translation
+      .row(v-if="translationDone")
+        p.output(v-for="p in output")
+          |{{p}} .
+          br
     main-footer(:name="developer")
 </template>
 
@@ -18,6 +28,9 @@ export default {
     return {
       developer:"ahmed osama",
       input:"",
+      tempinput:"",
+      output:[],
+      translationDone:false
     }
   },
   computed:{
@@ -37,6 +50,9 @@ export default {
       }
       return arr;
     },
+    totalTranslation:function(data, index){
+        this.output[index] = data
+    }
   },
 }
 </script>
@@ -58,7 +74,18 @@ export default {
     outline: none;
     clear:both;
     width:100%;
-    margin-bottom: 15px;;
+    margin-bottom: 15px;
+    border:1px solid darken(#fafafa,5%);
+  }
+  .output{
+    font-family: 'bahej';
+    line-height:  1.6em;
+    font-size:  24px;
+    margin-bottom:  15px;
+    max-width:600px;
+    margin-left:  auto;
+    margin-right: auto;
+    display:  block;
   }
   
 </style>
