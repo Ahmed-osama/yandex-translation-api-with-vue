@@ -20,9 +20,11 @@ import axios from 'axios'
 
       .clearfix
     .row
-      .col-sm-4
+      .col-sm-4.btnHolder
+
         .btn.square.blue_bg.right.round(@click="initTranslation")
           i.mdi-reload
+        .btn.square.red_bg.right.round {{indexNum + 1}}
       .col-sm-8
         textarea.translation_block_item.translation_block_item--input(v-model.lazy="humanTranslation") {{translation}}
       .clearfix

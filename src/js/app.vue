@@ -1,13 +1,14 @@
 
 <template lang='pug'>
   main
-    main-header
+    main-header(:blockLength="blockLength")
     .container.main-container
-      .row(v-if="!translationDone")
-        .col-sm-4
+      .row(v-if="!inputDone")
+        .col-sm-8.col-sm-push-2
           textarea.main-input(v-model="tempinput" @keyup.enter="input = tempinput")
-          .btn.green_bg.block(@click="input = tempinput") translate
-        .col-sm-8
+          .btn.green_bg.block(@click="input = tempinput; inputDone = true") translate
+      .row(v-if="!translationDone && inputDone")
+        .col-sm-8.col-sm-push-2
           translation-item(v-for="(block, index) in blocks",  :pureSentence="block", :indexNum="index" @translation = "totalTranslation")
           
 
@@ -30,7 +31,8 @@ export default {
       input:"",
       tempinput:"",
       output:[],
-      translationDone:false
+      translationDone:false,
+      inputDone:false
     }
   },
   computed:{
@@ -38,6 +40,9 @@ export default {
         var blocks =  this.input.split(".") || []
         this.cleanarray(blocks,"")
         return blocks
+      },
+      blockLength:function(){
+         return this.blocks.length
       }
   },
   methods:{
