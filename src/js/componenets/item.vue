@@ -11,7 +11,7 @@ import axios from 'axios'
       .clearfix
     .row
       .col-sm-4
-        span.translation_block_item.translation_block_item--side-item(v-if="translation.length > 1", :class='{"translation_block_item--loading": wordToSourceLoading, "ar":tolang =="ar" }')
+        span.translation_block_item.translation_block_item--side-item(v-if="translation.length > 1", :class='{"translation_block_item--loading": wordToSourceLoading }')
           span(v-if="wordToSourceResponse.length != 0") {{wordToSourceResponse}}
          
       .col-sm-8
@@ -24,7 +24,7 @@ import axios from 'axios'
 
         .btn.square.blue_bg.right.round(@click="initTranslation")
           i.mdi-reload
-        .btn.square.red_bg.right.round {{indexNum + 1}}
+        .btn.square.green_bg.right.round {{indexNum + 1}}
       .col-sm-8
         textarea.translation_block_item.translation_block_item--input(v-model.lazy="humanTranslation" :class='{"ar": tolang == "ar"}') {{translation}}
       .clearfix
@@ -105,7 +105,7 @@ export default {
          that.wordToSourceResponse =  response.data.text[0]
          that.wordToSourceLoading =  false
       })
-    },
+    }
   },
   watch:{
     humanTranslation:function(){
@@ -116,6 +116,7 @@ export default {
     var that = this
     if(!that.pureSentence) return
     this.initTranslation()
+   
   }
 }
 </script>

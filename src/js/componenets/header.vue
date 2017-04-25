@@ -10,8 +10,9 @@
     nav.main-header__nav
       ul
         li: a source blocks : {{blockLength}}
-      .btn.yellow_bg.round.main-header__cta(@click='$emit("reset")')
-        span New Translation session
+      transition(name="fade")  
+        .btn.yellow_bg.round.main-header__cta(@click='$emit("reset")' v-if="resetBtn")
+          span New Translation session
 
   label.main-header__menuTogglerOver(for='headerSidemenu-state')
 </template>
@@ -23,7 +24,7 @@ export default {
       
     }
   },
-  props:['blockLength'],
+  props:['blockLength', 'resetBtn'],
   computed(){
     return {
       

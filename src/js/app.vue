@@ -1,7 +1,7 @@
 
 <template lang='pug'>
   main
-    main-header(:blockLength="blockLength" @reset="reset")
+    main-header(:blockLength="blockLength" @reset="reset" :resetBtn ="inputDone")
     .container.main-container
       transition(name="fade")
         .row(v-if="!inputDone")
@@ -10,13 +10,13 @@
               option(v-for="(key, value) in counterylist" :value="value") {{key}}
             select.select-lang(v-model="targetlang")
               option(v-for="(key, value) in counterylist" :value="value") {{key}}
-            textarea.main-input(v-model="tempinput" @keyup.enter="input = tempinput")
-            .btn.green_bg.block(@click="input = tempinput; inputDone = true") translate
+            textarea.main-input#mainInput(v-model="tempinput" @keyup.enter="input = tempinput")
+            transition(name="fade")
+              .btn.green_bg.block(v-if="tempinput.length >= 2" @click="input = tempinput; inputDone = true") translate
       transition(name="fade")
         .row(v-if="!translationDone && inputDone")
           .col-sm-8.col-sm-push-2
-            translation-item(v-for="(block, index) in blocks",  :pureSentence="block", :indexNum="index" @translation = "totalTranslation" :fromlang="sourcelang" :tolang="targetlang")
-            
+            translation-item(v-for="(block, index) in blocks",  @translation = "totalTranslation", :pureSentence="block", :indexNum="index" :fromlang="sourcelang" :tolang="targetlang")
 
             .btnHolder.marginBottom.tac
               .btn.blue_bg.round(v-if="blocks.length > -1", @click="translationDone = true")
@@ -78,6 +78,7 @@ export default {
     gitLanguage:function(){
       var url = "https://translate.yandex.net/api/v1.5/tr.json/getLangs?key=trnsl.1.1.20170416T160225Z.e6054dd4f8b7fa3e.aec3b9e969b0d5aa83dcc538ca270dde3e55ce9f&ui=ar"
       var that = this
+      
       axios
       .get(url)
       .then(function (response) {
@@ -87,7 +88,8 @@ export default {
     }
   },
   mounted:function(){
-    this.gitLanguage()
+    setTimeout(this.gitLanguage(),500)
+    
   }
 }
 </script>
@@ -119,6 +121,9 @@ export default {
     width:100%;
     margin-bottom: 15px;
     border:1px solid darken(#fafafa,5%);
+    & + .btn{
+      margin-bottom:20px;
+    }
   }
   .output{
     font-family: 'bahej';

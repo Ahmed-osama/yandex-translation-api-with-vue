@@ -21,6 +21,7 @@
         }
         .btn + .btn{
             margin-#{$right}: 10px;
+            margin-#{$left}: 0;
         }
     }
     .btn{
