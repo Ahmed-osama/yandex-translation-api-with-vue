@@ -1,11 +1,9 @@
-<<<<<<< HEAD
-# rahala
 
-> a traveler guide
-
+# Yandex Block Translator
+> a way to enhance article translation converting it to small chuncjs of text.
+[Demo](https://ahmed-osama.github.io/yandex-translation-api-with-vue/)
 ## Build Setup
 
-``` bash
 # install dependencies
 npm install
 
@@ -14,10 +12,6 @@ npm run dev
 
 # build for production with minification
 npm run build
-```
+
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
-=======
-# yandex-translation-api-with-vue.js
-vue js use case for ynadex translation api
->>>>>>> origin/master
