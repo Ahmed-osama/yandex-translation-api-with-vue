@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # rahala
 
 > a traveler guide
@@ -16,3 +17,7 @@ npm run build
 ```
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# yandex-translation-api-with-vue.js
+vue js use case for ynadex translation api
+>>>>>>> origin/master
