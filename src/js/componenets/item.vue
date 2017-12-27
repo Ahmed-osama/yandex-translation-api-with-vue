@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 <template lang='pug'>
   div.translation_block(v-if="pureSentence.length > 1")
     .row
@@ -32,6 +32,7 @@ import axios from 'axios'
 </template>
 
 <script>
+import axios  from 'axios'
 export default {
   data () {
     return {
@@ -92,6 +93,7 @@ export default {
       .then(function (response) {
          that.wordToTargetResponse =  response.data.text[0]
           that.wordToTargetLoading =  false
+          responsiveVoice.speak(that.wordToTargetResponse, "Arabic Male");
       })
     },
     tosource(word,index){
@@ -104,6 +106,7 @@ export default {
       .then(function (response) {
          that.wordToSourceResponse =  response.data.text[0]
          that.wordToSourceLoading =  false
+         responsiveVoice.speak(that.wordToSourceResponse, "UK English Male");
       })
     }
   },

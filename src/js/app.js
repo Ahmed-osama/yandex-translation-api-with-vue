@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import axios from 'axios'
 import App from './App.vue'
 import mainHeader  from './componenets/header.vue'
 import mainFooter  from './componenets/footer.vue'

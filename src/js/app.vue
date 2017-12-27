@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -54,6 +55,14 @@ export default {
       blockLength:function(){
          return this.blocks.length
       }
+  },
+  watch:{
+    translationDone : function(){
+      if(this.translationDone){
+        self = this
+        responsiveVoice.speak(self.output.join(""), "Arabic Male");
+      }
+    }
   },
   methods:{
     cleanarray: function(c,val) {
