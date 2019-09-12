@@ -1,8 +1,7 @@
 
 # Yandex Block Translator
 > a way to enhance article translation converting it to small chuncjs of text.
-[Demo](https://ahmed-osama.github.io/yandex-translation-api-with-vue/) or 
-[surge](http://translator.surge.sh/)
+[Demo](http://translator.surge.sh/)
 ## Build Setup
 
 # install dependencies
